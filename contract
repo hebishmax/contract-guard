@@ -1,0 +1,19 @@
+# ContractGuard.vy
+
+from vyper.interfaces import ERC20
+
+stored_times: public(HashMap[address, uint256])
+
+event OperationAccepted:
+    user: address
+    timestamp: uint256
+
+@external
+@payable
+def protected_call():
+    assert msg.value >= as_wei_value(0.01, "ether"), "Insufficient payment"
+    assert block.timestamp - self.stored_times[msg.sender] > 60, "Wait 60 seconds"
+
+    self.stored_times[msg.sender] = block.timestamp
+
+    log OperationAccepted(msg.sender, block.timestamp)
