@@ -1,4 +1,4 @@
-# Contract Guard (Vyper)
+# Cooldown Guard (Vyper)
 
 A minimal smart contract written in Vyper that acts as a reusable security layer for other contracts. It restricts repeated calls from the same address within a short period and requires a minimum ETH payment.
 
